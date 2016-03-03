@@ -52,7 +52,7 @@ class Device
     /**
      * @var string
      *
-     * @ORM\ManyToMany(targetEntity="Message", inversedBy="informeddevises")
+     * @ORM\ManyToMany(targetEntity="Message", mappedBy="informeddevises")
      *
      */
     private $viewedmessage;
@@ -103,7 +103,7 @@ class Device
     /**
      * @return string
      */
-    public function getViewedmessage()
+    public function getViewedMessage()
     {
         return $this->viewedmessage;
     }
@@ -111,7 +111,7 @@ class Device
     /**
      * @param string $viewedmessage
      */
-    public function setViewedmessage($viewedmessage)
+    public function setViewedMessage($viewedmessage)
     {
         $this->viewedmessage = $viewedmessage;
     }
@@ -119,7 +119,7 @@ class Device
     /**
      * @param $viewedmessage
      */
-    public function removeViewedmessage($viewedmessage)
+    public function removeViewedMessage($viewedmessage)
     {
 //        $this->viewedmessage->removeElement($viewedmessage);
     }

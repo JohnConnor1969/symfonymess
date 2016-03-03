@@ -76,6 +76,7 @@ class Message {
      * @var string
      *
      * @ORM\ManyToMany(targetEntity="Device", inversedBy="viewedmessages")
+     * @ORM\JoinTable(name="informeddevices_viewedmessages")
      */
     private $informeddevices;
 
@@ -213,6 +214,22 @@ class Message {
     public function setCondition($condition)
     {
         $this->condition = $condition;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInformeddevices()
+    {
+        return $this->informeddevices;
+    }
+
+    /**
+     * @param string $informeddevices
+     */
+    public function setInformeddevices($informeddevices)
+    {
+        $this->informeddevices = $informeddevices;
     }
 
 
