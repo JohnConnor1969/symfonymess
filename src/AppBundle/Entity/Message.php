@@ -73,6 +73,13 @@ class Message {
     private $device;
 
     /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="Device", inversedBy="viewedmessages")
+     */
+    private $informeddevices;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime", length=255 )

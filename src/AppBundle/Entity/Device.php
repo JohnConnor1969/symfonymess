@@ -52,9 +52,10 @@ class Device
     /**
      * @var string
      *
-     * @ORM\Column(name="wiewedmessage", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="Message", inversedBy="informeddevises")
+     *
      */
-    private $viewedmessage; //TODO "in plural"
+    private $viewedmessage;
 
     public function __construct()
     {
@@ -113,6 +114,14 @@ class Device
     public function setViewedmessage($viewedmessage)
     {
         $this->viewedmessage = $viewedmessage;
+    }
+
+    /**
+     * @param $viewedmessage
+     */
+    public function removeViewedmessage($viewedmessage)
+    {
+//        $this->viewedmessage->removeElement($viewedmessage);
     }
 
 
