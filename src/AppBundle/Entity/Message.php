@@ -41,7 +41,7 @@ class Message {
      *
      * @ORM\Column(name="message", type="string", length=255 )
      */
-    private $message;
+    private $messagetext;
 
     /**
      * @var \DateTime
@@ -73,10 +73,10 @@ class Message {
     private $device;
 
     /**
-     * @var string
+     *
      *
      * @ORM\ManyToMany(targetEntity="Device", inversedBy="viewedmessages")
-     * @ORM\JoinTable(name="informeddevices_viewedmessages")
+     * @ORM\JoinTable(name="viewedmessages_informeddevices")
      */
     private $informeddevices;
 
@@ -97,7 +97,7 @@ class Message {
     public function __construct()
     {
         $this->createdAt = time();
-        $this->message = new ArrayCollection();
+        $this->informeddevices = new ArrayCollection();
     }
 
     public function __toString()
@@ -135,6 +135,24 @@ class Message {
     {
         return $this->name;
     }
+
+    /**
+     * @return string
+     */
+    public function getMessagetext()
+    {
+        return $this->messagetext;
+    }
+
+    /**
+     * @param string $messagetext
+     */
+    public function setMessagetext($messagetext)
+    {
+        $this->messagetext = $messagetext;
+    }
+
+
 
     /**
      * @return string
@@ -219,19 +237,25 @@ class Message {
     /**
      * @return string
      */
-    public function getInformeddevices()
+    public function getInformedDevices()
     {
         return $this->informeddevices;
     }
 
     /**
-     * @param string $informeddevices
+     * @param string $device
      */
-    public function setInformeddevices($informeddevices)
+    public function setInformedDevices(Device $device)
     {
-        $this->informeddevices = $informeddevices;
+        $this->informeddevices[] = $device;
     }
 
-
+    /**
+     * @param string $device
+     */
+    public function removeInformedDevices(Device $device)
+    {
+        $this->informeddevices->removeElement($device);
+    }
 
 }

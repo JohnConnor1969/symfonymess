@@ -50,17 +50,17 @@ class Device
 
 
     /**
-     * @var string
+     *
      *
      * @ORM\ManyToMany(targetEntity="Message", mappedBy="informeddevises")
      *
      */
-    private $viewedmessage;
+    private $viewedmessages;
 
     public function __construct()
     {
         $this->createdAt = time();
-        $this->device = new ArrayCollection();
+        $this->viewedmessages = new ArrayCollection();
     }
 
     public function __toString()
@@ -105,23 +105,23 @@ class Device
      */
     public function getViewedMessage()
     {
-        return $this->viewedmessage;
+        return $this->viewedmessages;
     }
 
     /**
-     * @param string $viewedmessage
+     * @param string $message
      */
-    public function setViewedMessage($viewedmessage)
+    public function setViewedMessage(Message $message)
     {
-        $this->viewedmessage = $viewedmessage;
+        $this->viewedmessages[] = $message;
     }
 
     /**
-     * @param $viewedmessage
+     * @param $message
      */
-    public function removeViewedMessage($viewedmessage)
+    public function removeViewedMessage(Message $message)
     {
-//        $this->viewedmessage->removeElement($viewedmessage);
+        $this->viewedmessages->removeElement($message);
     }
 
 
