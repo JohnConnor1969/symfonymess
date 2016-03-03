@@ -1,24 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 3/2/2016
- * Time: 6:55 PM
- */
-namespace AppBundle\Entity;
 
+namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Message
+ * Class Message
  *
  * @ORM\Table(name="message")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\MessageRepository")
  */
-
-
 class Message {
     /**
      * @var integer
@@ -39,9 +31,9 @@ class Message {
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="string", length=255 )
+    * @ORM\Column(name="text", type="text")
      */
-    private $messagetext;
+    private $text;
 
     /**
      * @var \DateTime
@@ -49,7 +41,6 @@ class Message {
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
-
 
     /**
      * @var string
@@ -73,31 +64,31 @@ class Message {
     private $device;
 
     /**
-     *
-     *
-     * @ORM\ManyToMany(targetEntity="Device", inversedBy="viewedmessages")
-     * @ORM\JoinTable(name="viewedmessages_informeddevices")
+     * @ORM\ManyToMany(targetEntity="Device", inversedBy="viewedMessages")
+     * @ORM\JoinTable(name="device_message")
      */
-    private $informeddevices;
+    private $informedDevices;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime", length=255 )
+     * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="expiration", type="integer", length=255 )
+     * @ORM\Column(name="expiration", type="integer")
      */
     private $expiration;
+
+
 
     public function __construct()
     {
         $this->createdAt = time();
-        $this->informeddevices = new ArrayCollection();
+        $this->informedDevices = new ArrayCollection();
     }
 
     public function __toString()
@@ -139,20 +130,18 @@ class Message {
     /**
      * @return string
      */
-    public function getMessagetext()
+    public function getText()
     {
-        return $this->messagetext;
+        return $this->text;
     }
 
     /**
-     * @param string $messagetext
+     * @param string $text
      */
-    public function setMessagetext($messagetext)
+    public function setText($text)
     {
-        $this->messagetext = $messagetext;
+        $this->text = $text;
     }
-
-
 
     /**
      * @return string
@@ -235,27 +224,26 @@ class Message {
     }
 
     /**
-     * @return string
+     * @return ArrayCollection
      */
     public function getInformedDevices()
     {
-        return $this->informeddevices;
+        return $this->informedDevices;
     }
 
     /**
-     * @param string $device
+     * @param Device $device
      */
     public function setInformedDevices(Device $device)
     {
-        $this->informeddevices[] = $device;
+        $this->informedDevices[] = $device;
     }
 
     /**
-     * @param string $device
+     * @param Device $device
      */
     public function removeInformedDevices(Device $device)
     {
-        $this->informeddevices->removeElement($device);
+        $this->informedDevices->removeElement($device);
     }
-
 }

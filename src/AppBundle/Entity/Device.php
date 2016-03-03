@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 3/3/2016
- * Time: 9:45 AM
- */
 
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Device
  *
@@ -32,7 +27,7 @@ class Device
      *
      * @ORM\Column(name="device_id", type="integer")
      */
-    private $device_id;
+    private $uniqueId;
 
     /**
      * @var string
@@ -50,17 +45,14 @@ class Device
 
 
     /**
-     *
-     *
-     * @ORM\ManyToMany(targetEntity="Message", mappedBy="informeddevises")
-     *
+     * @ORM\ManyToMany(targetEntity="Message", mappedBy="informedDevises")
      */
-    private $viewedmessages;
+    private $viewedMessages;
 
     public function __construct()
     {
         $this->createdAt = time();
-        $this->viewedmessages = new ArrayCollection();
+        $this->viewedMessages = new ArrayCollection();
     }
 
     public function __toString()
@@ -71,17 +63,17 @@ class Device
     /**
      * @return int
      */
-    public function getDeviceId()
+    public function getUniqueId()
     {
-        return $this->device_id;
+        return $this->uniqueId;
     }
 
     /**
-     * @param int $device_id
+     * @param $uniqueid
      */
-    public function setDeviceId($device_id)
+    public function setUniqueId($uniqueid)
     {
-        $this->device_id = $device_id;
+        $this->uniqueId = $uniqueid;
     }
 
     /**
@@ -101,28 +93,26 @@ class Device
     }
 
     /**
-     * @return string
+     * @return ArrayCollection
      */
     public function getViewedMessage()
     {
-        return $this->viewedmessages;
+        return $this->viewedMessages;
     }
 
     /**
-     * @param string $message
+     * @param Message $message
      */
     public function setViewedMessage(Message $message)
     {
-        $this->viewedmessages[] = $message;
+        $this->viewedMessages[] = $message;
     }
 
     /**
-     * @param $message
+     * @param Message $message
      */
     public function removeViewedMessage(Message $message)
     {
-        $this->viewedmessages->removeElement($message);
+        $this->viewedMessages->removeElement($message);
     }
-
-
 }
