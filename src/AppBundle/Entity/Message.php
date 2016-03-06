@@ -31,7 +31,7 @@ class Message {
     /**
      * @var string
      *
-    * @ORM\Column(name="text", type="text")
+    * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
@@ -45,23 +45,23 @@ class Message {
     /**
      * @var string
      *
-     * @ORM\Column(name="condition", type="string", length=255)
+     * @ORM\Column(name="stipulation", type="string", length=255, nullable=true)
      */
-    private $condition;
+    private $stipulation;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="group", type="string", length=255 )
+     * @ORM\Column(name="targetGroup", type="string", length=255, nullable=true)
      */
-    private $group;
+    private $targetGroup;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="device", type="string", length=255 )
+     * @ORM\Column(name="targetDevice", type="string", length=255, nullable=true)
      */
-    private $device;
+    private $targetDevice;
 
     /**
      * @ORM\ManyToMany(targetEntity="Device", inversedBy="viewedMessages")
@@ -146,33 +146,33 @@ class Message {
     /**
      * @return string
      */
-    public function getGroup()
+    public function getTargetGroup()
     {
-        return $this->group;
+        return $this->targetGroup;
     }
 
     /**
      * @param string $group
      */
-    public function setGroup($group)
+    public function setTargetGroup($group)
     {
-        $this->group = $group;
+        $this->targetGroup = $group;
     }
 
     /**
      * @return string
      */
-    public function getDevice()
+    public function getTargetDevice()
     {
-        return $this->device;
+        return $this->targetDevice;
     }
 
     /**
      * @param string $device
      */
-    public function setDevice($device)
+    public function setTargetDevice($device)
     {
-        $this->device = $device;
+        $this->targetDevice = $device;
     }
 
     /**
@@ -210,17 +210,17 @@ class Message {
     /**
      * @return string
      */
-    public function getCondition()
+    public function getStipulation()
     {
-        return $this->condition;
+        return $this->stipulation;
     }
 
     /**
-     * @param string $condition
+     * @param string $stipulation
      */
-    public function setCondition($condition)
+    public function setStipulation($stipulation)
     {
-        $this->condition = $condition;
+        $this->stipulation = $stipulation;
     }
 
     /**

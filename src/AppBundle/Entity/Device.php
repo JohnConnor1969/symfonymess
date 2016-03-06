@@ -25,16 +25,16 @@ class Device
     /**
      * @var integer
      *
-     * @ORM\Column(name="device_id", type="integer")
+     * @ORM\Column(name="uniqueId", type="integer", nullable=true)
      */
     private $uniqueId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="group", type="string", length=255 )
+     * @ORM\Column(name="includeInGroup", type="string", length=255, nullable=true)
      */
-    private $group;
+    private $includeInGroup;
 
     /**
      * @var \DateTime
@@ -79,9 +79,9 @@ class Device
     /**
      * @return string
      */
-    public function getGroup()
+    public function getIncludeInGroup()
     {
-        return $this->group;
+        return $this->includeInGroup;
     }
 
     /**
@@ -89,7 +89,7 @@ class Device
      */
     public function setGroup($group)
     {
-        $this->group = $group;
+        $this->includeInGroup = $group;
     }
 
     /**
