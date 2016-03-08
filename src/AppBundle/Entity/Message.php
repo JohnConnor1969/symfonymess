@@ -72,9 +72,9 @@ class Message {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="targetDate", type="date")
      */
-    private $date;
+    private $targetDate;
 
     /**
      * @var integer
@@ -87,7 +87,7 @@ class Message {
 
     public function __construct()
     {
-        $this->createdAt = time();
+        $this->createdAt = new \DateTime('now');
         $this->informedDevices = new ArrayCollection();
     }
 
@@ -178,17 +178,17 @@ class Message {
     /**
      * @return \DateTime
      */
-    public function getDate()
+    public function getTargerDate()
     {
-        return $this->date;
+        return $this->targetDate;
     }
 
     /**
      * @param \DateTime $date
      */
-    public function setDate($date)
+    public function setTargetDate($date)
     {
-        $this->date = $date;
+        $this->targetDate= $date;
     }
 
     /**

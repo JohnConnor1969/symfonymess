@@ -32,7 +32,8 @@ class Device
     /**
      * @var string
      *
-     * @ORM\Column(name="includeInGroup", type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity="GroupOf", inversedBy="members")
+     * @ORM\JoinTable(name="device_group")
      */
     private $includeInGroup;
 
@@ -51,8 +52,9 @@ class Device
 
     public function __construct()
     {
-        $this->createdAt = time();
+        $this->createdAt = new \DateTime('now');
         $this->viewedMessages = new ArrayCollection();
+        $this->includeInGroup = new ArrayCollection();
     }
 
     public function __toString()
@@ -77,7 +79,7 @@ class Device
     }
 
     /**
-     * @return string
+     * @return ArrayCollection
      */
     public function getIncludeInGroup()
     {
@@ -85,11 +87,19 @@ class Device
     }
 
     /**
-     * @param string $group
+     * @param GroupOf $group
      */
-    public function setGroup($group)
+    public function setIncludeInGroup(GroupOf $group)
     {
-        $this->includeInGroup = $group;
+        $this->includeInGroup[] = $group;
+    }
+
+    /**
+     * @param GroupOf $group
+    */
+    public function removeIcludeInGroup(GroupOf $group)
+    {
+        $this->includeInGroup->removeElement($group);
     }
 
     /**
