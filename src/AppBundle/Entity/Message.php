@@ -31,14 +31,14 @@ class Message {
     /**
      * @var string
      *
-    * @ORM\Column(name="text", type="text", nullable=true)
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="date")
      */
     private $createdAt;
 
@@ -65,7 +65,6 @@ class Message {
 
     /**
      * @ORM\ManyToMany(targetEntity="Device", inversedBy="viewedMessages")
-     * @ORM\JoinTable(name="device_message")
      */
     private $informedDevices;
 
@@ -178,7 +177,7 @@ class Message {
     /**
      * @return \DateTime
      */
-    public function getTargerDate()
+    public function getTargetDate()
     {
         return $this->targetDate;
     }
@@ -205,6 +204,22 @@ class Message {
     public function setExpiration($expiration)
     {
         $this->expiration = $expiration;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
     }
 
     /**

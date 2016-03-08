@@ -63,6 +63,30 @@ class GroupOf
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @param string $name
      */
     public function setName($name)
@@ -88,7 +112,7 @@ class GroupOf
 
     /**
      * @param Device $device
-    */
+     */
     public function removeMembers(Device $device)
     {
         $this->members->removeElement($device);

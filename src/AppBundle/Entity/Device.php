@@ -33,7 +33,6 @@ class Device
      * @var string
      *
      * @ORM\ManyToMany(targetEntity="GroupOf", inversedBy="members")
-     * @ORM\JoinTable(name="device_group")
      */
     private $includeInGroup;
 
@@ -46,7 +45,7 @@ class Device
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Message", mappedBy="informedDevises")
+     * @ORM\ManyToMany(targetEntity="Message", mappedBy="informedDevices")
      */
     private $viewedMessages;
 
@@ -60,6 +59,14 @@ class Device
     public function __toString()
     {
         return (string) $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -96,16 +103,32 @@ class Device
 
     /**
      * @param GroupOf $group
-    */
+     */
     public function removeIcludeInGroup(GroupOf $group)
     {
         $this->includeInGroup->removeElement($group);
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
      * @return ArrayCollection
      */
-    public function getViewedMessage()
+    public function getViewedMessages()
     {
         return $this->viewedMessages;
     }
@@ -113,7 +136,7 @@ class Device
     /**
      * @param Message $message
      */
-    public function setViewedMessage(Message $message)
+    public function setViewedMessages(Message $message)
     {
         $this->viewedMessages[] = $message;
     }
@@ -121,7 +144,7 @@ class Device
     /**
      * @param Message $message
      */
-    public function removeViewedMessage(Message $message)
+    public function removeViewedMessages(Message $message)
     {
         $this->viewedMessages->removeElement($message);
     }
