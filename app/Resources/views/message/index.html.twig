@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Message list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Text</th>
+                <th>Createdat</th>
+                <th>Stipulation</th>
+                <th>Targetgroup</th>
+                <th>Targetdevice</th>
+                <th>Targetdate</th>
+                <th>Expiration</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for message in messages %}
+            <tr>
+                <td><a href="{{ path('message_show', { 'id': message.id }) }}">{{ message.id }}</a></td>
+                <td>{{ message.name }}</td>
+                <td>{{ message.text }}</td>
+                <td>{% if message.createdAt %}{{ message.createdAt|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ message.stipulation }}</td>
+                <td>{{ message.targetGroup }}</td>
+                <td>{{ message.targetDevice }}</td>
+                <td>{% if message.targetDate %}{{ message.targetDate|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ message.expiration }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('message_show', { 'id': message.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('message_edit', { 'id': message.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('message_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

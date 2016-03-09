@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\AST\Functions;
 
 class MessageRepository extends EntityRepository
 {
@@ -29,6 +30,16 @@ class MessageRepository extends EntityRepository
         $sql = $this->createQueryBuilder('b' );
 
 
+    }
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getMessagesNotExpirated ()
+    {
+//        $now = date('Y-m-d');
+
+//        return $this->createQueryBuilder('n')
+//            ->andWhere(DATE_ADD(n.targetDate, n.expiration, "day" ));
     }
 
 }
