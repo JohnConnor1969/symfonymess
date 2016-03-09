@@ -51,7 +51,7 @@ class GroupOf
 
     public function __toString()
     {
-        return (string)$this->id;
+        return (string)$this->name;
     }
 
     /**
@@ -112,7 +112,7 @@ class GroupOf
 
     /**
      * @param Device $device
-     */
+    */
     public function removeMembers(Device $device)
     {
         $this->members->removeElement($device);

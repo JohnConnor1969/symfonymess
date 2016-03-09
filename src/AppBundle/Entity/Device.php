@@ -58,7 +58,7 @@ class Device
 
     public function __toString()
     {
-        return (string) $this->id;
+        return (string) $this->uniqueId;
     }
 
     /**
@@ -103,7 +103,7 @@ class Device
 
     /**
      * @param GroupOf $group
-     */
+    */
     public function removeIcludeInGroup(GroupOf $group)
     {
         $this->includeInGroup->removeElement($group);

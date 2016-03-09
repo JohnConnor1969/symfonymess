@@ -31,7 +31,7 @@ class Message {
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text", nullable=true)
+    * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
@@ -92,7 +92,7 @@ class Message {
 
     public function __toString()
     {
-        return (string) $this->id;
+        return (string) $this->name;
     }
 
     /**
