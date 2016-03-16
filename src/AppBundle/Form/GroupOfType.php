@@ -17,8 +17,7 @@ class GroupOfType extends AbstractType
         $builder
             ->add('createdAt')
             ->add('name')
-            ->add('members')
-        ;
+            ->add('members');
     }
     
     /**

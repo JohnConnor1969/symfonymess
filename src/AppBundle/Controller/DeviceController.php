@@ -134,7 +134,6 @@ class DeviceController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('device_delete', array('id' => $device->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

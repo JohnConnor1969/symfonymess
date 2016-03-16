@@ -13,6 +13,10 @@
                 <th>Uniqueid</th>
                 <td>{{ device.uniqueId }}</td>
             </tr>
+            {#<tr>#}
+                {#<th>groupOf</th>#}
+                {#<td>{{ device.includeInGroup }}</td>#}
+            {#</tr>#}
             <tr>
                 <th>Createdat</th>
                 <td>{% if device.createdAt %}{{ device.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>

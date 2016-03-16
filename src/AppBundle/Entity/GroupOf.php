@@ -112,7 +112,7 @@ class GroupOf
 
     /**
      * @param Device $device
-    */
+     */
     public function removeMembers(Device $device)
     {
         $this->members->removeElement($device);

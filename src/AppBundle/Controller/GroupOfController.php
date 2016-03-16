@@ -134,7 +134,6 @@ class GroupOfController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('groupof_delete', array('id' => $groupOf->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

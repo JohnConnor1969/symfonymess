@@ -18,8 +18,7 @@ class DeviceType extends AbstractType
             ->add('uniqueId')
             ->add('createdAt')
             ->add('includeInGroup')
-            ->add('viewedMessages')
-        ;
+            ->add('viewedMessages');
     }
     
     /**

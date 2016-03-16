@@ -23,8 +23,7 @@ class MessageType extends AbstractType
             ->add('targetDevice')
             ->add('targetDate')
             ->add('expiration')
-            ->add('informedDevices')
-        ;
+            ->add('informedDevices');
     }
     
     /**

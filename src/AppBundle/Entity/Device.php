@@ -30,7 +30,6 @@ class Device
     private $uniqueId;
 
     /**
-     * @var string
      *
      * @ORM\ManyToMany(targetEntity="GroupOf", inversedBy="members")
      */
@@ -48,6 +47,8 @@ class Device
      * @ORM\ManyToMany(targetEntity="Message", mappedBy="informedDevices")
      */
     private $viewedMessages;
+
+
 
     public function __construct()
     {

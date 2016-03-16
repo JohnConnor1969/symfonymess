@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="message")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\MessageRepository")
  */
-class Message {
+class Message
+{
     /**
      * @var integer
      *
@@ -31,7 +32,7 @@ class Message {
     /**
      * @var string
      *
-    * @ORM\Column(name="text", type="text", nullable=true)
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
     private $text;
 
@@ -83,7 +84,6 @@ class Message {
     private $expiration;
 
 
-
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -92,7 +92,7 @@ class Message {
 
     public function __toString()
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     /**
@@ -187,7 +187,7 @@ class Message {
      */
     public function setTargetDate($date)
     {
-        $this->targetDate= $date;
+        $this->targetDate = $date;
     }
 
     /**

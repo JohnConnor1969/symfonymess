@@ -27,7 +27,7 @@ class MessageRepository extends EntityRepository
     /**
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getActiveMessages ()
+    public function getActiveMessages()
     {
         $now = date('Y-m-d');
 

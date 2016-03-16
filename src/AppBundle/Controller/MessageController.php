@@ -134,7 +134,6 @@ class MessageController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('message_delete', array('id' => $message->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
