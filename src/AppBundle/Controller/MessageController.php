@@ -3,11 +3,13 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Message;
 use AppBundle\Form\MessageType;
+
 
 /**
  * Message controller.
@@ -26,11 +28,53 @@ class MessageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $messages = $em->getRepository('AppBundle:Message')->findAll();
+        $messages = $em->getRepository('AppBundle:Message')->getActiveMessages();
 
-        return $this->render('message/index.html.twig', array(
-            'messages' => $messages,
-        ));
+        $result = array();
+        foreach ($messages as $message) {
+            $b = $message->to2json();
+            $result[] = $b;
+        }
+
+
+        return  new JsonResponse( array(
+                'messages' => $result,
+                'sucsess' => 'ok',
+            )
+        );
+
+//        return $this->render('message/index.html.twig', array(
+//            'messages' => $messages,
+//        ));
+    }
+
+    /**
+     * List Message for group
+     *
+     * @Route("/inform", name="mess_for_group")
+     * @Method({"GET", "POST"})
+     *
+     * @return JsonResponse
+     */
+    public function informAction()
+    {
+        $group2 = 'group2';
+        $em = $this->getDoctrine()->getManager();
+
+        $messages = $em->getRepository('AppBundle:Message')->getMessagesForGroup($group2);
+
+        $result = array();
+        foreach ($messages as $message) {
+            $b = $message->to2json();
+            $result[] = $b;
+        }
+
+        return  new JsonResponse( array(
+            'messages' => $result,
+            'sucsess' => 'ok',
+                )
+        );
+
     }
 
     /**

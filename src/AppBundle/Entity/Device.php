@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Device
  *
  * @ORM\table(name="Device")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\DeviceRepository")
  */
 class Device
 {
@@ -148,5 +148,25 @@ class Device
     public function removeViewedMessages(Message $message)
     {
         $this->viewedMessages->removeElement($message);
+    }
+
+    public function to2json()
+    {
+        $resmess = array();
+        $resgroup = array();
+        $grops = $this->getIncludeInGroup();
+        $mess = $this->getViewedMessages();
+        foreach ($grops as $grop)
+            $resgroup[] = $grop->__toString();
+        foreach ($mess as $mes)
+            $resmess[] = $mes->__toString();
+        return array(
+            'id' => $this->id,
+            'unique' => $this->uniqueId,
+            'creadata' => $this->createdAt,
+            'groupof' => $resgroup,
+            'viewmess' => $resmess,
+
+        );
     }
 }

@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Device;
 use AppBundle\Form\DeviceType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Device controller.
@@ -28,9 +29,21 @@ class DeviceController extends Controller
 
         $devices = $em->getRepository('AppBundle:Device')->findAll();
 
-        return $this->render('device/index.html.twig', array(
-            'devices' => $devices,
-        ));
+        $result = array();
+        foreach ($devices as $device) {
+            $b = $device->to2json();
+            $result[] = $b;
+        }
+
+
+        return  new JsonResponse( array(
+                'devices' => $result,
+                'sucsess' => 'ok',
+            )
+
+//        return $this->render('device/index.html.twig', array(
+//            'devices' => $devices,
+        );
     }
 
     /**

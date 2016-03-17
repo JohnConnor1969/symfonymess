@@ -72,7 +72,7 @@ class Message
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="targetDate", type="date")
+     * @ORM\Column(name="targetDate", type="date", nullable=true)
      */
     private $targetDate;
 
@@ -260,5 +260,22 @@ class Message
     public function removeInformedDevices(Device $device)
     {
         $this->informedDevices->removeElement($device);
+    }
+
+    /**
+     * @return array
+     */
+    public function to2json()
+    {
+        return array(
+            'id' => $this->id,
+            'text' => $this->text,
+            'expiration' => $this->expiration,
+            'name' => $this->name,
+            'device' => $this->targetDevice,
+            'group' => $this->targetGroup,
+            'tardata' => $this->targetDate,
+            'creadata' => $this->createdAt,
+        );
     }
 }
