@@ -51,16 +51,16 @@ class Message
     private $stipulation;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="targetGroup", type="string", length=255, nullable=true)
+     * @ORM\Column(name="targetGroup", type="integer", nullable=true)
      */
     private $targetGroup;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="targetDevice", type="string", length=255, nullable=true)
+     * @ORM\Column(name="targetDevice", type="integer", nullable=true)
      */
     private $targetDevice;
 
@@ -92,7 +92,7 @@ class Message
 
     public function __toString()
     {
-        return (string)$this->name;
+        return (string)$this->id;
     }
 
     /**

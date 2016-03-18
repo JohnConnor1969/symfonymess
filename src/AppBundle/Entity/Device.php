@@ -59,7 +59,7 @@ class Device
 
     public function __toString()
     {
-        return (string) $this->uniqueId;
+        return (string) $this->id;
     }
 
     /**
