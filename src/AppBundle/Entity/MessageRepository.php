@@ -70,7 +70,7 @@ class MessageRepository extends EntityRepository
     public function getActiveMessages()
     {
         $now = date('Y-m-d');
-        $device = '2';
+        $device = '1';
         $groupname = '2';
 
         return $this->createQueryBuilder('n')
@@ -79,15 +79,15 @@ class MessageRepository extends EntityRepository
 //            ->andWhere("n.targetDevice IS NULL")
 //            ->setParameter('now', $now)
 //            ->getQuery()->execute();
-            ->andWhere(":now <= DATE_ADD(n.targetDate, n.expiration, 'day') AND n.targetDate <= :now")
-            ->orWhere("n.targetDate IS NULL AND :now <= DATE_ADD(n.createdAt, n.expiration, 'day') AND n.createdAt <= :now")
-//            ->join('AppBundle:Device', 'dv', 'WITH', ':dev = dv.id')
-//            ->innerJoin('AppBundle:GroupOf', 'gr', 'WITH', 'gr.members = dv.id')
-            ->andWhere("n.targetDevice = :dev")
-            ->orWhere(":grid = n.targetGroup")
-            ->setParameter('now', $now)
+//            ->andWhere(":now <= DATE_ADD(n.targetDate, n.expiration, 'day') AND n.targetDate <= :now")
+//            ->orWhere("n.targetDate IS NULL AND :now <= DATE_ADD(n.createdAt, n.expiration, 'day') AND n.createdAt <= :now")
+            ->join('AppBundle:Device', 'dv', 'WITH', 'dv.id LIKE :dev')
+            ->innerJoin('AppBundle:GroupOf', 'gr', 'WITH', 'gr.id = (dv.includeInGroup)')
+            ->andWhere("n.targetDevice = dv.id")
+            ->orWhere("gr.id = n.targetGroup")
+//            ->setParameter('now', $now)
             ->setParameter('dev', $device)
-            ->setParameter('grid', $groupname)
+//            ->setParameter('grid', $groupname)
             ->getQuery()->execute();
 
 
