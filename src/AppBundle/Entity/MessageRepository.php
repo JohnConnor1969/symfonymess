@@ -82,17 +82,12 @@ class MessageRepository extends EntityRepository
 //            ->getQuery()->execute(); // old query
             ->andWhere(":now <= DATE_ADD(n.targetDate, n.expiration, 'day') AND n.targetDate <= :now")
             ->orWhere("n.targetDate IS NULL AND :now <= DATE_ADD(n.createdAt, n.expiration, 'day') AND n.createdAt <= :now")
-
             ->leftJoin('AppBundle:Device', 'dv', 'WITH', 'dv.id LIKE :dev')
             ->leftJoin('dv.includeInGroup', 'gr', 'WITH', 'gr.id = n.targetGroup')
             ->leftJoin('n.informedDevices', 'indev', 'WITH', 'indev.id IS NOT NULL')
-//            ->leftJoin('AppBundle:Device', 'dvv', 'WITH', 'dvv.id LIKE :dev')
-//            ->leftJoin('dv.viewedMessages', 'vm', 'WITH', 'vm.id = n.id')
-//            ->innerJoin('dv.viewedMessages', 'nw', 'WITH', 'nw.informedDevices != n.id')
             ->andWhere("n.targetDevice = dv.id")
             ->orWhere("gr.id = n.targetGroup")
-            ->andWhere("indev.id IS NULL")
-//            ->innerJoin('n.informedDevices', 'dvv', 'WITH', 'n.informedDevices != dvv')
+            ->andWhere("indev.id != dv.id OR indev.id IS NULL")
             ->setParameter('now', $now)
             ->setParameter('dev', $device)
             ->getQuery()->execute();
