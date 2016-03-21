@@ -20,11 +20,12 @@ class MessageRepository extends EntityRepository
 
             ->andWhere(":now <= DATE_ADD(n.targetDate, n.expiration, 'day') AND n.targetDate <= :now")
             ->orWhere("n.targetDate IS NULL AND :now <= DATE_ADD(n.createdAt, n.expiration, 'day') AND n.createdAt <= :now")
-            ->leftJoin('AppBundle:Device', 'dv', 'WITH', 'dv.id LIKE :dev')
+            ->leftJoin('AppBundle:Device', 'dv', 'WITH', 'dv.id LIKE :dev.id')
             ->leftJoin('dv.includeInGroup', 'gr', 'WITH', 'gr.id = n.targetGroup')
+            ->leftJoin('n.informedDevices', 'indev', 'WITH', 'indev.id IS NOT NULL')
             ->andWhere("n.targetDevice = dv.id")
             ->orWhere("gr.id = n.targetGroup")
-            //andWhere чобы показанные не показывать
+            ->andWhere("indev.id != dv.id OR indev.id IS NULL")
             ->setParameter('now', $now)
             ->setParameter('dev', $device)
             ->getQuery()->execute();
@@ -71,7 +72,7 @@ class MessageRepository extends EntityRepository
     public function getActiveMessages()
     {
         $now = date('Y-m-d');
-        $device = 2;
+        $device = 3;
 //        $groupname = '2';
 
         return $this->createQueryBuilder('n')
