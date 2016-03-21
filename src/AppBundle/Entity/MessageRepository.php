@@ -2,9 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\DBAL\Platforms;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\AST\Functions;
-use Doctrine\DBAL\Platforms;
 
 class MessageRepository extends EntityRepository
 {
@@ -24,6 +24,7 @@ class MessageRepository extends EntityRepository
             ->leftJoin('dv.includeInGroup', 'gr', 'WITH', 'gr.id = n.targetGroup')
             ->andWhere("n.targetDevice = dv.id")
             ->orWhere("gr.id = n.targetGroup")
+            //andWhere чобы показанные не показывать
             ->setParameter('now', $now)
             ->setParameter('dev', $device)
             ->getQuery()->execute();
@@ -70,7 +71,7 @@ class MessageRepository extends EntityRepository
     public function getActiveMessages()
     {
         $now = date('Y-m-d');
-        $device = 5;
+        $device = 2;
 //        $groupname = '2';
 
         return $this->createQueryBuilder('n')
@@ -81,10 +82,17 @@ class MessageRepository extends EntityRepository
 //            ->getQuery()->execute(); // old query
             ->andWhere(":now <= DATE_ADD(n.targetDate, n.expiration, 'day') AND n.targetDate <= :now")
             ->orWhere("n.targetDate IS NULL AND :now <= DATE_ADD(n.createdAt, n.expiration, 'day') AND n.createdAt <= :now")
+
             ->leftJoin('AppBundle:Device', 'dv', 'WITH', 'dv.id LIKE :dev')
             ->leftJoin('dv.includeInGroup', 'gr', 'WITH', 'gr.id = n.targetGroup')
+            ->leftJoin('n.informedDevices', 'indev', 'WITH', 'indev.id IS NOT NULL')
+//            ->leftJoin('AppBundle:Device', 'dvv', 'WITH', 'dvv.id LIKE :dev')
+//            ->leftJoin('dv.viewedMessages', 'vm', 'WITH', 'vm.id = n.id')
+//            ->innerJoin('dv.viewedMessages', 'nw', 'WITH', 'nw.informedDevices != n.id')
             ->andWhere("n.targetDevice = dv.id")
             ->orWhere("gr.id = n.targetGroup")
+            ->andWhere("indev.id IS NULL")
+//            ->innerJoin('n.informedDevices', 'dvv', 'WITH', 'n.informedDevices != dvv')
             ->setParameter('now', $now)
             ->setParameter('dev', $device)
             ->getQuery()->execute();

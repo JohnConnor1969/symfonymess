@@ -3,6 +3,7 @@
 parameters:
 #    parameter_name: value
 
-#    service_name:
-#        class: AppBundle\Directory\ClassName
+services:
+    app.delivery_messages:
+        class: AppBundle\Service\DeliveryMessages
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

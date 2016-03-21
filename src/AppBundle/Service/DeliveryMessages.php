@@ -14,41 +14,11 @@ use AppBundle\Entity\Message;
 
 class DeliveryMessages
 {
-    public function getCurrentMessages(Device $device)
+    public function getMessages(Device $device)
     {
-        $currentMessages = array();
 
-        //find by uniqueId
-        $device->getUniqueId(); //придет строкой
-        $res = array();
-        $test = 'group2';
-//        $em = $this->getDoctrine()->getManager();
+           $some = $this->getRepository('AppBundle:Message')->getMessDev($device);
 
-        $res[] = $this->getDoctrine()->getManager()->getRepository('AppBundle:Message')->getMessagesForGroup($test);
-
-
-        $currentMessages[] = $res;
-
-
-        //find by each includeInGroup
-        $listgroups = array();
-        $groups = $device->getIncludeInGroup(); //придет объектом....
-
-        foreach ($groups as $group){
-            $listgroups[] = $group->toString(); // делаем массивом
-        }
-
-
-        $currentMessages[] = $res;
-
-        return $currentMessages;
-
+        return $some;
     }
-
-    public function getSomeMessages ($test)
-    {
-        return $this->getRepository('AppBundle:Message')->getMessagesForGroup($test);
-    }
-
-
 }
