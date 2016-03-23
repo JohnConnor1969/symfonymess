@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\DBAL\Platforms;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\AST\Functions;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class MessageRepository extends EntityRepository
 {
@@ -92,9 +94,37 @@ class MessageRepository extends EntityRepository
             ->setParameter('now', $now)
             ->setParameter('dev', $device)
             ->getQuery()->execute();
+    }
 
+    public function getMessFromSelect ()
+    {
+        $rsm = new ResultSetMapping();
+        $rsm->addEntityResult('AppBundle\Entity\Message', 'm');
+        $rsm->addFieldResult('m', 'id', 'id');
+        $rsm->addFieldResult('m', 'name', 'name');
+        $rsm->addFieldResult('m', 'text', 'text');
+        $rsm->addFieldResult('m', 'expiration', 'expiration');
+        $rsm->addFieldResult('m', 'created_at', 'createdAt');
+        $device = 2;
+        $em = $this->getEntityManager();
+        $query =$em->createNativeQuery('SELECT
+  m.*
+  , md.*
+  , dg.*
 
+FROM
+  message m
+  LEFT JOIN message_device md ON (m.id = md.message_id AND md.device_id = :device)
+  JOIN device_group_of dg ON (dg.device_id = :device AND m.targetGroup = dg.group_of_id AND md.message_id IS NULL )
+WHERE
+  (NOW() <= DATE_ADD(m.targetDate, INTERVAL m.expiration DAY) AND m.targetDate <= NOW())
+  OR
+  (m.targetDate IS NULL AND (NOW() <= DATE_ADD(m.created_at,INTERVAL m.expiration DAY) AND m.created_at <= NOW()))
 
+;
+', $rsm);
+
+        return $query->setParameter('device', $device)->getResult();
     }
 
 
