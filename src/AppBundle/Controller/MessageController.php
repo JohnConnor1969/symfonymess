@@ -28,7 +28,7 @@ class MessageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $messages = $em->getRepository('AppBundle:Message')->getMessFromSelect();
+        $messages = $em->getRepository('AppBundle:Message')->getSomeThing();
 
         $result = array();
         foreach ($messages as $message) {

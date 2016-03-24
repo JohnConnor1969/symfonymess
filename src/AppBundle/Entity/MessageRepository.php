@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\AST\Functions;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMapping;
+//use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 
 class MessageRepository extends EntityRepository
 {
@@ -114,7 +115,7 @@ class MessageRepository extends EntityRepository
 
 FROM
   message m
-  LEFT JOIN message_device md ON (m.id = md.message_id AND md.device_id = :device)
+  LEFT JOIN md ON (m.id = md.message_id AND md.device_id = :device)
   JOIN device_group_of dg ON (dg.device_id = :device AND m.targetGroup = dg.group_of_id AND md.message_id IS NULL )
 WHERE
   (NOW() <= DATE_ADD(m.targetDate, INTERVAL m.expiration DAY) AND m.targetDate <= NOW())
@@ -125,6 +126,46 @@ WHERE
 ', $rsm);
 
         return $query->setParameter('device', $device)->getResult();
+    }
+
+    public function getAnotherMetod()
+    {
+        $device = 2;
+
+        return $this->createQueryBuilder('m')
+            ->leftJoin('m.informedDevices', 'md', 'WITH', 'md.id = :device' )
+            ->join(':device.groupOf', 'dg', 'WITH', 'm.targetCroup = dg.id AND md.id IS NULL')
+
+
+            ;
+    }
+
+    public function getSomeThing ()
+    {
+        $device = $this->getEntityManager()->getRepository('AppBundle:Device')
+            ->createQueryBuilder('d')
+            ->where('d.id = 2')
+            ->getQuery()->execute();
+
+//        $dg = $device->getIncludeInGroup();
+        $in = $this->getEntityManager()->getRepository('AppBundle:GroupOf')
+            ->createQueryBuilder('g')
+            ->select('g.id')
+            ->where(':device MEMBER OF g.members');
+
+        $dg = $in->setParameter('device', $device)->getQuery()->execute();
+
+
+
+        $q = $this->createQueryBuilder('m');
+//                ->where($q->expr()->notIn('m.targetGroup', $in->getDQL()))
+                $qq = $q->add('where', $q->expr()->in('m.targetGroup', $in->getDQL()))
+                ->orWhere('m.targetDevice = :device')
+                ->setParameter('device', $device)
+//                ->setParameter('dg', $dg);
+;
+        return $qq->getQuery()->execute();
+//        return $dg;
     }
 
 
