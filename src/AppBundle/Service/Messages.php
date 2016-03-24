@@ -17,7 +17,7 @@ class DeliveryMessages
     public function getMessages(Device $device)
     {
 
-           $some = $this->getRepository('AppBundle:Message')->getMessDev($device);
+           $some = $this->getEntityRepository('AppBundle:Message')->getMessagesForDevice($device);
 
         return $some;
     }

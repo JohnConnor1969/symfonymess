@@ -6,12 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class GroupOf
+ * Class Group
  *
- * @ORM\table(name="GroupOf")
+ * @ORM\table(name="Group")
  * @ORM\Entity
  */
-class GroupOf
+class Group
 {
     /**
      * @var integer
@@ -37,7 +37,7 @@ class GroupOf
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Device", mappedBy="includeInGroup")
+     * @ORM\ManyToMany(targetEntity="Device", mappedBy="group")
      *
      */
     private $members;

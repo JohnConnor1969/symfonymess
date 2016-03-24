@@ -31,9 +31,9 @@ class Device
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="GroupOf", inversedBy="members")
+     * @ORM\ManyToMany(targetEntity="Group", inversedBy="devices")
      */
-    private $includeInGroup;
+    private $group;
 
     /**
      * @var \DateTime
@@ -46,15 +46,15 @@ class Device
     /**
      * @ORM\ManyToMany(targetEntity="Message", mappedBy="informedDevices")
      */
-    private $viewedMessages;
+    private $messages;
 
 
 
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
-        $this->viewedMessages = new ArrayCollection();
-        $this->includeInGroup = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+        $this->group = new ArrayCollection();
     }
 
     public function __toString()
@@ -89,25 +89,25 @@ class Device
     /**
      * @return ArrayCollection
      */
-    public function getIncludeInGroup()
+    public function getGroup()
     {
-        return $this->includeInGroup;
+        return $this->group;
     }
 
     /**
-     * @param GroupOf $group
+     * @param Group $group
      */
-    public function setIncludeInGroup(GroupOf $group)
+    public function setGroup(Group $group)
     {
-        $this->includeInGroup[] = $group;
+        $this->group[] = $group;
     }
 
     /**
-     * @param GroupOf $group
+     * @param Group $group
     */
-    public function removeIcludeInGroup(GroupOf $group)
+    public function removeGroup(Group $group)
     {
-        $this->includeInGroup->removeElement($group);
+        $this->group->removeElement($group);
     }
 
     /**
@@ -129,25 +129,25 @@ class Device
     /**
      * @return ArrayCollection
      */
-    public function getViewedMessages()
+    public function getMessages()
     {
-        return $this->viewedMessages;
+        return $this->messages;
     }
 
     /**
      * @param Message $message
      */
-    public function setViewedMessages(Message $message)
+    public function setMessages(Message $message)
     {
-        $this->viewedMessages[] = $message;
+        $this->messages[] = $message;
     }
 
     /**
      * @param Message $message
      */
-    public function removeViewedMessages(Message $message)
+    public function removeMessages(Message $message)
     {
-        $this->viewedMessages->removeElement($message);
+        $this->messages->removeElement($message);
     }
 
     public function to2json()

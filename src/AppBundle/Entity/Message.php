@@ -43,38 +43,32 @@ class Message
      */
     private $createdAt;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="stipulation", type="string", length=255, nullable=true)
-     */
-    private $stipulation;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="targetGroup", type="integer", nullable=true)
+     * @ORM\Column(name="group", type="integer", nullable=true)
      */
-    private $targetGroup;
+    private $group;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="targetDevice", type="integer", nullable=true)
+     * @ORM\Column(name="device", type="integer", nullable=true)
      */
-    private $targetDevice;
+    private $device;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Device", inversedBy="viewedMessages")
+     * @ORM\ManyToMany(targetEntity="Device", inversedBy="messages")
      */
-    private $informedDevices;
+    private $devices;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="targetDate", type="date", nullable=true)
+     * @ORM\Column(name="date", type="datetime", nullable=true)
      */
-    private $targetDate;
+    private $date;
 
     /**
      * @var integer
@@ -87,7 +81,7 @@ class Message
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
-        $this->informedDevices = new ArrayCollection();
+        $this->devices = new ArrayCollection();
     }
 
     public function __toString()
@@ -145,49 +139,49 @@ class Message
     /**
      * @return string
      */
-    public function getTargetGroup()
+    public function getGroup()
     {
-        return $this->targetGroup;
+        return $this->group;
     }
 
     /**
      * @param string $group
      */
-    public function setTargetGroup($group)
+    public function setGroup($group)
     {
-        $this->targetGroup = $group;
+        $this->group = $group;
     }
 
     /**
      * @return string
      */
-    public function getTargetDevice()
+    public function getDevice()
     {
-        return $this->targetDevice;
+        return $this->device;
     }
 
     /**
      * @param string $device
      */
-    public function setTargetDevice($device)
+    public function setDevice($device)
     {
-        $this->targetDevice = $device;
+        $this->device = $device;
     }
 
     /**
      * @return \DateTime
      */
-    public function getTargetDate()
+    public function getDate()
     {
-        return $this->targetDate;
+        return $this->date;
     }
 
     /**
      * @param \DateTime $date
      */
-    public function setTargetDate($date)
+    public function setDate($date)
     {
-        $this->targetDate = $date;
+        $this->date = $date;
     }
 
     /**
@@ -223,59 +217,38 @@ class Message
     }
 
     /**
-     * @return string
-     */
-    public function getStipulation()
-    {
-        return $this->stipulation;
-    }
-
-    /**
-     * @param string $stipulation
-     */
-    public function setStipulation($stipulation)
-    {
-        $this->stipulation = $stipulation;
-    }
-
-    /**
      * @return ArrayCollection
      */
-    public function getInformedDevices()
+    public function getDevices()
     {
-        return $this->informedDevices;
+        return $this->devices;
     }
 
     /**
      * @param Device $device
      */
-    public function setInformedDevices(Device $device)
+    public function setDevices(Device $device)
     {
-        $this->informedDevices[] = $device;
+        $this->devices[] = $device;
     }
 
     /**
      * @param Device $device
      */
-    public function removeInformedDevices(Device $device)
+    public function removeDevices(Device $device)
     {
-        $this->informedDevices->removeElement($device);
+        $this->devices->removeElement($device);
     }
 
     /**
      * @return array
      */
-    public function to2json()
+    public function toArray()
     {
         return array(
             'id' => $this->id,
             'text' => $this->text,
-            'expiration' => $this->expiration,
             'name' => $this->name,
-            'device' => $this->targetDevice,
-            'group' => $this->targetGroup,
-            'tardata' => $this->targetDate,
-            'creadata' => $this->createdAt,
         );
     }
 }

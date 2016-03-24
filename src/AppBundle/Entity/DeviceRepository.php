@@ -9,14 +9,14 @@ use Doctrine\DBAL\Platforms;
 class DeviceRepository extends EntityRepository
 {
     /**
-     * @param GroupOf $groupOf
+     * @param Group $group
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getDeviceFromG(GroupOf $groupOf)
+    public function getDeviceFromG(Group $group)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere("d.groupOf = :groupof")
-            ->setParameter('groupof', $groupOf)
+            ->andWhere("d.group = :group")
+            ->setParameter('group', $group)
             ->getQuery()->execute();
     }
 
@@ -27,7 +27,7 @@ class DeviceRepository extends EntityRepository
     public function getDeviceFromM(Message $viewed)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere("d.viewedMessages = :viewed")
+            ->andWhere("d.messages = :viewed")
             ->setParameter('viewed', $viewed)
             ->getQuery()->execute();
     }
