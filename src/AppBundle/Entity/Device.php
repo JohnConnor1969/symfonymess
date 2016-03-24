@@ -33,7 +33,7 @@ class Device
      *
      * @ORM\ManyToMany(targetEntity="Group", inversedBy="devices")
      */
-    private $group;
+    private $groups;
 
     /**
      * @var \DateTime
@@ -44,7 +44,7 @@ class Device
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Message", mappedBy="informedDevices")
+     * @ORM\ManyToMany(targetEntity="Message", mappedBy="devices")
      */
     private $messages;
 
@@ -54,7 +54,7 @@ class Device
     {
         $this->createdAt = new \DateTime('now');
         $this->messages = new ArrayCollection();
-        $this->group = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     public function __toString()
@@ -89,25 +89,25 @@ class Device
     /**
      * @return ArrayCollection
      */
-    public function getGroup()
+    public function getGroups()
     {
-        return $this->group;
+        return $this->groups;
     }
 
     /**
      * @param Group $group
      */
-    public function setGroup(Group $group)
+    public function setGroups(Group $group)
     {
-        $this->group[] = $group;
+        $this->groups[] = $group;
     }
 
     /**
      * @param Group $group
     */
-    public function removeGroup(Group $group)
+    public function removeGroups(Group $group)
     {
-        $this->group->removeElement($group);
+        $this->groups->removeElement($group);
     }
 
     /**
@@ -150,23 +150,4 @@ class Device
         $this->messages->removeElement($message);
     }
 
-    public function to2json()
-    {
-        $resmess = array();
-        $resgroup = array();
-        $grops = $this->getIncludeInGroup();
-        $mess = $this->getViewedMessages();
-        foreach ($grops as $grop)
-            $resgroup[] = $grop->__toString();
-        foreach ($mess as $mes)
-            $resmess[] = $mes->__toString();
-        return array(
-            'id' => $this->id,
-            'unique' => $this->uniqueId,
-            'creadata' => $this->createdAt,
-            'groupof' => $resgroup,
-            'viewmess' => $resmess,
-
-        );
-    }
 }

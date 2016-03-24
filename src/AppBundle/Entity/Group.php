@@ -37,16 +37,16 @@ class Group
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Device", mappedBy="group")
+     * @ORM\ManyToMany(targetEntity="Device", mappedBy="groups")
      *
      */
-    private $members;
+    private $devices;
 
 
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
-        $this->members = new ArrayCollection();
+        $this->devices = new ArrayCollection();
     }
 
     public function __toString()
@@ -55,11 +55,11 @@ class Group
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getName()
+    public function getId()
     {
-        return $this->name;
+        return $this->id;
     }
 
     /**
@@ -71,19 +71,19 @@ class Group
     }
 
     /**
-     * @param \DateTime $createdAt
+     * @param \DateTime $createdat
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt($createdat)
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = $createdat;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId()
+    public function getName()
     {
-        return $this->id;
+        return $this->name;
     }
 
     /**
@@ -97,25 +97,25 @@ class Group
     /**
      * @return ArrayCollection
      */
-    public function getMembers()
+    public function getDevices()
     {
-        return $this->members;
+        return $this->devices;
     }
 
     /**
      * @param Device $device
      */
-    public function setMembers(Device $device)
+    public function setDevices(Device $device)
     {
-        $this->members[] = $device;
+        $this->devices[] = $device;
     }
 
     /**
      * @param Device $device
      */
-    public function removeMembers(Device $device)
+    public function removeDevices(Device $device)
     {
-        $this->members->removeElement($device);
+        $this->devices->removeElement($device);
     }
 
 }

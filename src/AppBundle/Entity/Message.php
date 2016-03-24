@@ -209,11 +209,11 @@ class Message
     }
 
     /**
-     * @param \DateTime $createdAt
+     * @param \DateTime $createdat
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt($createdat)
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = $createdat;
     }
 
     /**
