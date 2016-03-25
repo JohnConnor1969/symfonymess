@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Group
  *
- * @ORM\table(name="Group")
+ * @ORM\table(name="`group`")
  * @ORM\Entity
  */
 class Group
@@ -37,7 +37,7 @@ class Group
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Device", inversedBy="groups")
+     * @ORM\ManyToMany(targetEntity="Device", mappedBy="groups")
      *
      */
     private $devices;

@@ -31,7 +31,7 @@ class Device
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Group", mappedBy="devices")
+     * @ORM\ManyToMany(targetEntity="Group", inversedBy="devices")
      */
     private $groups;
 
@@ -44,7 +44,7 @@ class Device
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Message", mappedBy="devices")
+     * @ORM\ManyToMany(targetEntity="Message", inversedBy="devices")
      */
     private $messages;
 

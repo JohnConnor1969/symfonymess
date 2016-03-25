@@ -47,7 +47,7 @@ class Message
     /**
      * @var integer
      *
-     * @ORM\Column(name="group", type="integer", nullable=true)
+     * @ORM\Column(name="`group`", type="integer", nullable=true)
      */
     private $group;
 
@@ -59,7 +59,7 @@ class Message
     private $device;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Device", inversedBy="messages")
+     * @ORM\ManyToMany(targetEntity="Device", mappedBy="messages")
      */
     private $devices;
 
