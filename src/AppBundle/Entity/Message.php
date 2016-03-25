@@ -39,7 +39,7 @@ class Message
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="date")
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
@@ -247,8 +247,8 @@ class Message
     {
         return array(
             'id' => $this->id,
-            'text' => $this->text,
             'name' => $this->name,
+            'text' => $this->text,
         );
     }
 }
