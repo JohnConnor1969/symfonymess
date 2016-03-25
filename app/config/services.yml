@@ -4,6 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-    app.delivery_messages:
-        class: AppBundle\Service\DeliveryMessages
+    app.messages:
+        class: AppBundle\Service\Messages
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

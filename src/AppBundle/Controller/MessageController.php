@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\DeliveryMessages;
+use AppBundle\Service\Messages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,22 +26,25 @@ class MessageController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+//        $em = $this->getDoctrine()->getManager();
 
-        $messages = $em->getRepository('AppBundle:Message')->getMessagesForDevice();
+//        $messages = $em->getRepository('AppBundle:Message')->getMessagesForDevice();
+        $device = 3;
+        $messages = new Messages($device);
 
-        $result = array();
-        foreach ($messages as $message) {
-            $b = $message->toArray();
-            $result[] = $b;
-        }
-
-
-        return  new JsonResponse( array(
-                'messages' => $result,
-                'sucsess' => 'ok',
-            )
-        );
+//        $result = array();
+//        foreach ($messages as $message) {
+//            $b = $message->toArray();
+//            $result[] = $b;
+//        }
+//
+//
+//        return  new JsonResponse( array(
+//                'messages' => $result,
+//                'sucsess' => 'ok',
+//            )
+//        );
+        return ($messages);
 
 
     }

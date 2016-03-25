@@ -1,24 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 3/16/2016
- * Time: 7:24 PM
- */
 
 namespace AppBundle\Service;
 
-use Doctrine\ORM\EntityRepository;
+use AppBundle\AppBundle;
+use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Device;
 use AppBundle\Entity\Message;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DeliveryMessages
+class Messages extends Controller
 {
+    /**
+     * @param Device $device
+     * @return mixed
+     */
     public function getMessages(Device $device)
     {
+        $em = $this->getDoctrine()->getManager();
 
-           $some = $this->getEntityRepository('AppBundle:Message')->getMessagesForDevice($device);
+        $messages = $em->getRepository('AppBundle:Message')->getMessagesForDevice($device);
 
-        return $some;
+        return $messages;
     }
 }
