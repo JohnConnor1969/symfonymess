@@ -249,6 +249,12 @@ class Message
             'id' => $this->id,
             'name' => $this->name,
             'text' => $this->text,
+            'exp' => $this->expiration,
+            'tg' => $this->group,
+            'td' => $this->device,
+            'date' => $this->date,
+            'credate' => $this->createdAt,
+            'dev' => $this->devices,
         );
     }
 }
